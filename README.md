@@ -144,6 +144,61 @@ Objectif :
 
 Code interface disparaît à la compilation
 
+## Créer un projet TypeScript
+
+**Exemple de hiérarchisation de dossier minimaliste**
+
+```bash
+proj/
+	|- src/ #source à compiler
+	|- dist/ #destination
+```
+
+**Projet avec Gulp**
+
+Installation des dépendances
+
+```bash
+npm i -g gulp-cli
+npm i --save-dev gulp 
+npm i --save-dev typescript gulp-typescript
+
+#-g installe les dépendances de manière globale sur la machine, et non seulement dans l'application
+
+# *-cli donne accès à des commandes supplémentaires directement dans le terminal
+
+#--save-dev exclut les dépendances de la compilation pour la mise en production de l'application
+```
+
+Configuration Gulp-stream
+
+```javascript
+// Dépendances
+const gulp = require("gulp");
+const ts = require("gulp-typescript");
+
+gulp.task("default", () => { //callback de la commande gulp
+  return gulp
+    .src("src/main.ts") // définition du fichier source à compiler
+    .pipe(
+      ts({
+        noImplicitAny: true,
+        outFile: "main.js",
+      })
+    )
+    .pipe(gulp.dest("dist")); // définition du fichier de destination
+});
+```
+
+Si tout fonctionne, on a ce résultat dans la console :
+
+```bash
+**@MacbookAir first-tsc-app % gulp 
+[17:19:38] Using gulpfile ~/Documents/01-DEV/1-Fiches/cours-typescript/ressources/first-tsc-app/gulpfile.js
+[17:19:38] Starting 'default'...
+[17:19:46] Finished 'default' after 7.98 s
+```
+
 
 
 
